@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { 
     Flex, 
     Stack, 
@@ -26,10 +26,17 @@ const Home = ({history}) => {
     const [show, setShow] = React.useState(false);
     const handleClick = () => setShow(!show);
 
+    const [alreadyLogIn, setALI] = React.useState(false)
+
+    useEffect(() => {
+        if(context.state.isLogged) setALI(true)
+    }, [])
+
     const login = e => {
         context
             .handleLoginSubmit(e)
             .then(res => {
+                console.log(res)
                 if(res.user) history.push("/dashboard")
                 else {
                     toast({
@@ -51,6 +58,8 @@ const Home = ({history}) => {
     return (
         <MyContext.Consumer>
             {context => {
+                console.log(context.state)
+                if(!alreadyLogIn)
                 return(
                     <Flex
                         w="100vw"
@@ -80,6 +89,7 @@ const Home = ({history}) => {
                                                     }
                                                 />
                                                 <Input
+                                                    id="email"
                                                     name="email"
                                                     value={context.state.formLogin.email}
                                                     onChange={context.handleLoginInput}
@@ -96,6 +106,7 @@ const Home = ({history}) => {
                                                     }
                                                 />
                                                 <Input
+                                                    id="password"
                                                     type={show ? "text" : "password"}
                                                     name="password"
                                                     value={context.state.formLogin.password}
@@ -117,7 +128,10 @@ const Home = ({history}) => {
                             </Flex>
                         </Flex>
                     </Flex>
-                )
+                ) 
+                else {
+                    history.push('/dashboard')
+                }
             }}
         </MyContext.Consumer>
     );

@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test page <Home /> Should render <Home /> 1`] = `
+<ContextConsumer>
+  <Component />
+</ContextConsumer>
+`;

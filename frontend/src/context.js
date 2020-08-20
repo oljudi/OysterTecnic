@@ -17,7 +17,11 @@ class MyProvider extends Component {
             password: ""
         },
         user: null,
-        isLogged: false
+        isLogged: localStorage.getItem("logged") === "true" ? true : false,
+    }
+
+    checkIfUserLogged = () => {
+        if(localStorage.getItem("logged") === "true") this.setState({haveBeenlogged: true})
     }
 
     handleLoginInput = e => {
@@ -36,6 +40,7 @@ class MyProvider extends Component {
                     user,
                     isLogged: true
                 })
+                localStorage.setItem("logged", "true")
                 return {user, msg: "Bienvenido a tu cuenta Oyster!!"}
             })
             .catch(err => {
@@ -47,6 +52,7 @@ class MyProvider extends Component {
                         password: ""
                     }
                 })
+                localStorage.setItem("logged", "false")
                 return { user: null, msg: "Usuario o contraseña incorrectos!!"}
             })
             .finally(() => this.setState({ formLogin: {email: "", password: ""}}))
@@ -80,6 +86,7 @@ class MyProvider extends Component {
 
     handleLogout = async () => {
         await AUTH_SERVICE.logOut()
+        localStorage.setItem("logged", "false")
         this.props.history.push('/')
         this.setState({ isLogged: false, user: null })
     } 
@@ -92,7 +99,8 @@ class MyProvider extends Component {
             handleSignupInput,
             handleSignupRadio,
             handleSignupSubmit,
-            handleLogout
+            handleLogout,
+            checkIfUserLogged
         } = this
         return (
             <MyContext.Provider
@@ -103,7 +111,8 @@ class MyProvider extends Component {
                     handleSignupInput,
                     handleSignupRadio,
                     handleSignupSubmit,
-                    handleLogout
+                    handleLogout,
+                    checkIfUserLogged
                 }}
             >
                 {this.props.children}

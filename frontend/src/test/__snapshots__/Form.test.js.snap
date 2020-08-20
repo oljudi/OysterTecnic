@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test component <From /> for login Should render <From /> 1`] = `
+<Box
+  as="form"
+  backgroundColor="transparent"
+  boxShadow="x1"
+  onSubmit={[Function]}
+  w="350px"
+>
+  <ForwardRef
+    p={8}
+    spacing={8}
+  >
+    <Heading
+      as="h1"
+      color="black"
+      id="tittle"
+      textAlign="center"
+    >
+      Bienvenido
+    </Heading>
+    <Button
+      backgroundColor="#20D7AE"
+      color="white"
+      id="button"
+      type="submit"
+    >
+      Acceder!
+    </Button>
+  </ForwardRef>
+</Box>
+`;
